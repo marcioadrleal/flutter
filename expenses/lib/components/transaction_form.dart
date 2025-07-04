@@ -4,7 +4,10 @@ class TransactionForm extends StatelessWidget {
   
   String title = '';
   String value = '';
-  //TransactionForm({super.key});
+
+  TransactionForm(this.onSubmit);
+
+  final void Function(String,double) onSubmit;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +33,9 @@ class TransactionForm extends StatelessWidget {
                    mainAxisAlignment: MainAxisAlignment.end,
                    children: [
                      TextButton(onPressed: () {
-                       print(title);
-                       print(value);
+                       final newTitle = title;
+                       final newValue = double.tryParse(value) ?? 0.0;
+                       onSubmit(newTitle,newValue);
                      }, 
                      child: Text('Nova Transação' ,
                      style: TextStyle(color: Colors.purple),
